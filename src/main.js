@@ -109,14 +109,19 @@ import VirtualScroller from 'primevue/virtualscroller';
 import BlockViewer from '@/components/BlockViewer.vue';
 
 import '@/assets/styles.scss';
+import auth from './auth/plugins/auth';
+import http from './auth/http';
 
 const app = createApp(App);
 
+app.use(http);
 app.use(router);
 app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
+
+app.use(auth);
 
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);

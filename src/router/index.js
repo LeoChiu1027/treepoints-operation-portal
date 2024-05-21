@@ -11,7 +11,8 @@ const router = createRouter({
                 {
                     path: '/',
                     name: 'dashboard',
-                    component: () => import('@/views/Dashboard.vue')
+                    component: () => import('@/views/Dashboard.vue'),
+                    meta: { auth: false }
                 },
                 {
                     path: '/uikit/formlayout',
@@ -172,4 +173,7 @@ const router = createRouter({
     ]
 });
 
-export default router;
+export default (app) => {
+    app.router = router;
+    app.use(router);
+};
