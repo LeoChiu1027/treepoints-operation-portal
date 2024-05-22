@@ -2,15 +2,40 @@
 import { useLayout } from '@/layout/composables/layout';
 import { ref, computed } from 'vue';
 import AppConfig from '@/layout/AppConfig.vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '@websanova/vue-auth/src/v3.js';
 
 const { layoutConfig } = useLayout();
-const email = ref('');
-const password = ref('');
 const checked = ref(false);
+const form = ref({ body: { email: '', password: '' } });
 
 const logoUrl = computed(() => {
     return `/layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
 });
+
+const auth = useAuth();
+const router = useRouter();
+
+async function login() {
+    console.log(form);
+    const result = await auth
+        .login({
+            data: form.value.body,
+            remember: false,
+            fetchUser: false,
+            staySignedIn: false
+            // redirect: '/'
+        })
+        .then(null, (res) => {
+            console.log(res);
+        });
+    console.log('result', result.data.token);
+    console.log('user', result.data.data);
+    auth.user(result.data.data);
+    auth.token('auth_token_default', result.data.token, false);
+    router.push('/');
+    console.log('finish');
+}
 </script>
 
 <template>
@@ -27,10 +52,10 @@ const logoUrl = computed(() => {
 
                     <div>
                         <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
-                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="email" />
+                        <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="form.body.email" />
 
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
-                        <Password id="password1" v-model="password" placeholder="Password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" :inputStyle="{ padding: '1rem' }"></Password>
+                        <Password id="password1" v-model="form.body.password" placeholder="Password" :toggleMask="true" class="w-full mb-3" inputClass="w-full" :inputStyle="{ padding: '1rem' }"></Password>
 
                         <div class="flex align-items-center justify-content-between mb-5 gap-5">
                             <div class="flex align-items-center">
@@ -39,7 +64,7 @@ const logoUrl = computed(() => {
                             </div>
                             <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                         </div>
-                        <Button label="Sign In" class="w-full p-3 text-xl"></Button>
+                        <Button label="Sign In" class="w-full p-3 text-xl" @click="login"></Button>
                     </div>
                 </div>
             </div>

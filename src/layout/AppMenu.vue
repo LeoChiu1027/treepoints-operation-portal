@@ -3,10 +3,19 @@ import { ref } from 'vue';
 
 import AppMenuItem from './AppMenuItem.vue';
 
+import { useAuth } from '@websanova/vue-auth/src/v3.js';
+const auth = useAuth();
+
+console.log('check loggin', auth.check());
+console.log('auth', auth.user());
+
 const model = ref([
     {
         label: 'Home',
-        items: [{ label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' }]
+        items: [
+            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+            { label: '登入', icon: 'pi pi-fw pi-home', to: '/auth/login' }
+        ]
     },
     {
         label: '會員給點',

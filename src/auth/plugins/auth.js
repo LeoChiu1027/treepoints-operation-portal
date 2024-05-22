@@ -17,7 +17,11 @@ export default (app) => {
             },
             options: {
                 rolesKey: 'type',
-                notFoundRedirect: { name: 'user-account' }
+                notFoundRedirect: { name: '404' },
+                authRedirect: { name: 'login' },
+                refreshData: {
+                    enabled: false
+                }
             }
         })
     );
