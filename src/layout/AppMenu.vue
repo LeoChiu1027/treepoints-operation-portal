@@ -6,8 +6,8 @@ import AppMenuItem from './AppMenuItem.vue';
 import { useAuth } from '@websanova/vue-auth/src/v3.js';
 const auth = useAuth();
 
-console.log('check loggin', auth.check());
-console.log('auth', auth.user());
+// console.log('check loggin', auth.check());
+// console.log('auth', auth.user());
 
 const model = ref([
     {

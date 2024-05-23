@@ -17,7 +17,6 @@ const auth = useAuth();
 const router = useRouter();
 
 async function login() {
-    console.log(form);
     const result = await auth
         .login({
             data: form.value.body,
@@ -29,12 +28,9 @@ async function login() {
         .then(null, (res) => {
             console.log(res);
         });
-    console.log('result', result.data.token);
-    console.log('user', result.data.data);
     auth.user(result.data.data);
     auth.token('auth_token_default', result.data.token, false);
     router.push('/');
-    console.log('finish');
 }
 </script>
 
