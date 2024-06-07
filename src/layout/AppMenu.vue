@@ -13,7 +13,7 @@ const model = ref([
     {
         label: 'Home',
         items: [
-            { label: 'Dashboard', icon: 'pi pi-fw pi-home', to: '/' },
+            { label: '首頁', icon: 'pi pi-fw pi-home', to: '/' },
             { label: '登入', icon: 'pi pi-fw pi-home', to: '/auth/login' }
         ]
     },

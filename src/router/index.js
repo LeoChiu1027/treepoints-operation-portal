@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+/* import { createRouter, createWebHistory } from 'vue-router';
 import AppLayout from '@/layout/AppLayout.vue';
 
 const router = createRouter({
@@ -171,6 +171,19 @@ const router = createRouter({
             component: () => import('@/views/pages/auth/Error.vue')
         }
     ]
+});
+
+export default (app) => {
+    app.router = router;
+    app.use(router);
+};
+ */
+import { createRouter, createWebHistory } from 'vue-router/auto';
+
+const router = createRouter({
+    history: createWebHistory()
+    // No need to manually add the routes property
+    // It will be handled by the plugin
 });
 
 export default (app) => {
